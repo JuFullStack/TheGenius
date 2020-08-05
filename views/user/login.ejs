@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+
+  <body>
+    <%- include("../menu"); %>
+
+    <!-- Material form register -->
+    <div class="card">
+      <h5 class="card-header white brown-text text-center py-4">
+        <img src="/images/logo.png" />
+        <p>로그인</p>
+      </h5>
+
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form
+          class="text-center"
+          style="color: #757575;"
+          action="#!"
+          id="loginForm"
+        >
+          <!-- E-mail -->
+          <div class="md-form">
+            <input type="email" id="email" class="form-control" required />
+            <label for="email">이메일</label>
+          </div>
+
+          <!-- Password -->
+          <div class="md-form">
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              aria-describedby="materialRegisterFormPasswordHelpBlock"
+              required
+            />
+            <label for="password">비밀번호</label>
+          </div>
+
+          <!-- Sign up button -->
+          <button
+            class="btn btn-outline-brown lighten-3 btn-rounded btn-block my-4 waves-effect z-depth-0"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </form>
+
+        <!-- Form -->
+      </div>
+    </div>
+    <!-- Material form register -->
+    <%- include("../footer"); %>
+    <script>
+      $(function () {
+        $("#loginForm").submit((event) => {
+          event.preventDefault();
+          const email = $("#email").val();
+          const password = $("#password").val();
+
+          $.ajax({
+            url: "/api/user/login",
+            type: "POST",
+            data: { email, password },
+          })
+            .done(() => {
+              location.href = "/";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

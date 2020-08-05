@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+
+  <body>
+    <%- include("../menu"); %>
+
+    <div class="row row-cols-1 row-cols-md-4">
+      <%result.forEach(game => { if(game.theme == "데스매치") { %>
+      <div class="col mb-4">
+        <!-- Card Light -->
+        <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img
+              class="card-img-top"
+              src="/images/<%= game.gameid %>.jpeg"
+              alt="존재하지 않는 게임 이미지입니다."
+            />
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body">
+            <!-- Social shares button -->
+            <a class="activator waves-effect waves-light mr-4"></a>
+            <!-- Title -->
+            <h4 class="card-title"><%= game.gamename %></h4>
+            <hr />
+            <!-- Text -->
+            <p class="card-text"><%= game.theme %></p>
+            <!-- Link -->
+            <a
+              href="/api/game/<%= game.gameid %>"
+              class="black-text d-flex justify-content-end"
+            >
+              <h5>플레이하기</h5>
+            </a>
+          </div>
+        </div>
+        <!-- Card Light -->
+      </div>
+      <% } }); %>
+    </div>
+
+    <%- include("../footer"); %>
+  </body>
+</html>

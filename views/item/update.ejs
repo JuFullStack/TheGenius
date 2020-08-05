@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+
+  <body>
+    <%- include("../menu"); %>
+
+    <form id="updateForm">
+      <!-- Material input -->
+      <div class="md-form">
+        <input
+          type="text"
+          id="itemid"
+          class="form-control"
+          value="<%=result.itemid%>"
+          required
+        />
+        <label for="itemid">Input Id</label>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          id="itemname"
+          class="form-control"
+          value="<%=result.itemname%>"
+          required
+        />
+        <label for="itemname">Input itemname</label>
+      </div>
+
+      <div class="md-form">
+        <input
+          type="text"
+          id="itemvalue"
+          class="form-control"
+          value="<%=result.itemvalue%>"
+          required
+        />
+        <label for="itemvalue">itemvalue</label>
+      </div>
+      <div class="md-form">
+        <input
+          type="text"
+          id="howgame"
+          class="form-control"
+          value="<%=result.howgame%>"
+          required
+        />
+        <label for="howgame">howgame</label>
+      </div>
+      <button type="submit" class="btn btn-brown lighten-3">저장</button>
+    </form>
+    <%- include("../footer"); %>
+    <script>
+      $(function () {
+        $("#updateForm").submit((event) => {
+          event.preventDefault();
+          const itemid = $("#itemid").val();
+          const itemname = $("#itemname").val();
+          const itemvalue = $("#itemvalue").val();
+          const howgame = $("#howgame").val();
+
+          $.ajax({
+            url: "/api/item/<%= result._id%>",
+            type: "PUT",
+            data: { itemid, itemname, itemvalue, howgame },
+          })
+            .done(() => {
+              location.href = "/api/item/<%= result._id%>";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

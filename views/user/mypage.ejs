@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+
+  <body>
+    <%- include("../menu"); %>
+    <div class="ui vertically divided grid" >
+      <div class="one column row">
+        <div class="column">
+            <div class="ui header" style="margin-left: 50px; margin-top: 25px;"><%=result.name%> (<%=result.email%>)</div>
+        </div>
+      </div>
+      <div class="two column row">
+        <div class="eight wide column" style="margin-left: 30px;">
+          <h2 class="ui center aligned header">
+            랭크
+          </h2>
+          <div class="ui three stackable cards">
+            <div class="card">
+              <div class="image">
+                <img src="/images/<%=result.lastrank%>.svg" />
+                <div class="content">
+                  <div class="center aligned header"><b>이전 랭크</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="image">
+                <img src="/images/wrank.svg" />
+                <div class="content">
+                  <div class="center aligned header"><b>현재 랭크</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="image">
+                <img src="/images/<%=result.bestrank%>.svg" />
+                <div class="content">
+                  <div class="center aligned header"><b>최고 랭크</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="two column row">
+        <div class="six wide column">
+          <h2 class="ui center aligned header">
+            통계
+          </h2>
+          <div class="ui form">
+            <div class="two fields">
+              <div class="field">
+                <label>보유 가넷</label>
+                <input type="text" value="<%=result.garnet%>" readonly />
+              </div>
+              <div class="field">
+                <label>최대 가넷</label>
+                <input type="text" value="<%=result.max_garnet%>" readonly />
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>블랙미션 수행 횟수</label>
+                <input type="text" value="<%=result.blackmissions%>" readonly />
+              </div>
+              <div class="field">
+                <label>블랙미션 성공 횟수</label>
+                <input
+                  type="text"
+                  value="<%=result.blackmission_success%>"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>승리 횟수</label>
+                <input type="text" value="<%=result.wins%>" readonly />
+              </div>
+              <div class="field">
+                <label>최다승 게임</label>
+                <input type="text" value="<%=result.expert_game%>" readonly />
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>데스매치 승률</label>
+                <input
+                  type="text"
+                  value="<%=(result.wins / result.playtimes) * 100%> %"  
+                  readonly
+                />
+              </div>
+              <div class="field">
+                <label>블랙미션 성공률</label>
+                <input
+                  type="text"
+                  value="<%=(result.blackmission_success / result.blackmissions) * 100%> %"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <%- include("../footer"); %>
+  </body>
+</html>

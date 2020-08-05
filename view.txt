@@ -1,0 +1,7 @@
+express-generator --view=pug <- 이것을 이용하면 됨
+
+1. View Engine
+: View Template File + backend에서 넘어온 JSON data = HTML
+
+2. material design + bootstrap
+=> MDB(material design for bootstrap)

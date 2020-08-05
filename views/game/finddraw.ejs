@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header");%>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/javascripts/main.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css"" />
+  <body style="background-color: #eee;">
+    <%- include("../menu");%>
+    <h1>같은 그림 찾기</h1>
+    <p>
+      <%=result.name%>님 환영합니다.
+    </p>
+    <div id="game">
+      <div id="bingo">
+        <table class="bingo-board">
+          <tr>
+            <td>A</td>
+            <td>L</td>
+            <td>I</td>
+            <td>E</td>
+          </tr>
+          <tr>
+            <td>Y</td>
+            <td>O</td>
+            <td>U</td>
+            <td>M</td>
+          </tr>
+          <tr>
+            <td>S</td>
+            <td>T</td>
+            <td>N</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>H</td>
+            <td>D</td>
+            <td>G</td>
+            <td>K</td>
+          </tr>
+        </table>
+      </div>
+      <div id="user">
+        <div id="list"></div>
+        <div id="logs"></div>
+        <input id="start_button" type="button" value="Game Start!" />
+        <input id="username" type="hidden" value="<%=result.name%>" />
+      </div>
+    </div>
+    <!-- container -->
+    <%- include("../footer");%>
+  </body>
+</html>

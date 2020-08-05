@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../header'); %>
+
+  <body>
+    <%- include('../menu'); %>
+
+    <!-- Material input -->
+    <div class="md-form">
+      <input
+        type="text"
+        id="gameid"
+        value="<%= result.gameid %>"
+        class="form-control"
+        readonly
+      />
+      <label for="gameid">gameid</label>
+    </div>
+    <div class="md-form">
+      <input
+        type="text"
+        id="gamename"
+        value="<%= result.gamename %>"
+        class="form-control"
+        readonly
+      />
+      <label for="gamename">gamename</label>
+    </div>
+
+    <!-- Material input -->
+    <div class="md-form">
+      <input
+        type="text"
+        id="theme"
+        value="<%= result.theme %>"
+        class="form-control"
+        readonly
+      />
+      <label for="theme">theme</label>
+    </div>
+    <button
+      type="button"
+      class="btn btn-brown lighten-3"
+      onclick="location.href='/api/game'"
+    >
+      목록
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-brown lighten-3"
+      onclick="location.href='/api/game/<%= result._id %>/edit'"
+    >
+      수정
+    </button>
+
+    <button id="deleteBtn" type="button" class="btn btn-brown lighten-3">
+      삭제
+    </button>
+
+    <%- include('../footer'); %>
+    <script>
+      $(function () {
+        //삭제
+        $("#deleteBtn").on("click", () => {
+          const result = confirm("삭제하시겠습니까?");
+          if (result) {
+            $.ajax({
+              url: "/api/game/<%= result._id %>",
+              type: "DELETE",
+            })
+              .done(() => {
+                location.href = "/api/game";
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+          } else {
+            console.log("not deleted");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

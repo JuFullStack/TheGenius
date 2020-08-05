@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+
+  <body>
+    <%- include("../menu"); %>
+
+    <form id="createForm">
+      <!-- Material input -->
+      <div class="md-form">
+        <input type="text" id="gameid" class="form-control" required />
+        <label for="gameid">Input Id</label>
+      </div>
+      <div class="md-form">
+        <input type="text" id="gamename" class="form-control" required />
+        <label for="gamename">Input gamename</label>
+      </div>
+
+      <div class="md-form">
+        <input type="text" id="theme" class="form-control" required />
+        <label for="theme">theme</label>
+      </div>
+      <button type="submit" class="btn btn-brown lighten-3">저장</button>
+    </form>
+    <%- include("../footer"); %>
+    <script>
+      $(function () {
+        $("#createForm").submit((event) => {
+          event.preventDefault();
+          const gameid = $("#gameid").val();
+          const gamename = $("#gamename").val();
+          const theme = $("#theme").val();
+
+          $.ajax({
+            url: "/api/game",
+            type: "POST",
+            data: { gameid, gamename, theme },
+          })
+            .done(() => {
+              location.href = "/api/game";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
