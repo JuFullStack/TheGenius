@@ -1,69 +1,69 @@
-var bingo = {
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length; i; i -= 1) {
+    j = Math.floor(Math.random() * i);
+    x = a[i - 1];
+    a[i - 1] = a[j];
+    a[j] = x;
+  }
+}
+
+var brow = {
   is_my_turn: Boolean,
   socket: null,
+  p1numbers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  p2numbers: [],
 
   init: function (socket) {
     var self = this;
     var user_cnt = 0;
+
+    shuffle(this.p1numbers);
 
     this.is_my_turn = false;
 
     socket = io();
 
     socket.on("check_number", function (data) {
-      self.where_is_it(data.num);
-      self.print_msg(data.username + "님이 '" + data.num + "'을 선택했습니다.");
+      console.log(data);
+      console.log("selected : ", data.num);
+      if (data.num % 2 == 0) self.print_msg(data.username + "씨 '" + "흑!'");
+      else self.print_msg(data.username + "씨 '" + "백!'");
     });
 
     socket.on("game_started", function (data) {
       console.log("enter the game_started");
       self.print_msg(data.username + " 님이 게임을 시작했습니다.");
+
       $("#start_button").hide();
     });
 
     socket.on("update_users", function (data, user_count) {
-      console.log(data);
+      console.log(data, "update user");
       user_cnt = user_count;
+      if (user_count == 2) {
+        window.ju = data;
+
+        for (let i = 0; i < user_count; i++) {
+          if (data[i].name != $("#username").val()) {
+            console.log(data[i].tile);
+            brow.p2numbers = data[i].tile.split(",");
+          }
+        }
+        make();
+      }
       self.update_userlist(data, socket);
     });
 
     //join
     socket.on("connect", function () {
-      socket.emit("join", { username: $("#username").val() });
+      socket.emit("join", {
+        username: $("#username").val(),
+        tile: brow.p1numbers.join(),
+      });
     });
 
-    var numbers = [
-      "ymo",
-      "ystar",
-      "yx",
-      "yfly",
-      "rrose",
-      "rstar",
-      "rxy",
-      "rmo",
-      "bvase",
-      "bfly",
-      "bcir",
-      "bx",
-      "grose",
-      "gcir",
-      "gxy",
-      "gx",
-    ];
-
-    function shuffle(a) {
-      var j, x, i;
-      for (i = a.length; i; i -= 1) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-      }
-    }
-
-    shuffle(numbers);
-
-    $("table.bingo-board td").each(function (i) {
+    $("table.brow-board td").each(function (i) {
       $(this).click(function () {
         if (user_cnt == 1) {
           self.print_msg("<알림> 최소 2명부터 게임이 가능합니다.");
@@ -90,7 +90,7 @@ var bingo = {
       //send num to other players
       socket.emit("select", {
         username: $("#username").val(),
-        num: $(obj).text(),
+        num: $(this).children("obj").attr("alt"),
       });
       this.check_num(obj);
 
@@ -104,16 +104,15 @@ var bingo = {
     var self = this;
     var obj = null;
 
-    $("table.bingo-board td").each(function (i) {
-      if ($(this).text() == num) {
+    $("table.brow-board td").each(function (i) {
+      if ($(this).val == num) {
         self.check_num(this);
       }
     });
   },
 
   check_num: function (obj) {
-    $(obj).css("text-decoration", "line-through");
-    $(obj).css("color", "lightgray");
+    $(obj).css("opacity", "0.5");
     $(obj).attr("checked", true);
   },
 
@@ -151,6 +150,54 @@ var bingo = {
   },
 };
 
+function make() {
+  console.log("make");
+  $("table.brow-board td").each(function (i) {
+    if (i < 9) {
+      if (brow.p2numbers.length != 0) {
+        if (brow.p2numbers[i] % 2 == 0) {
+          $(this).html(
+            "<img alt=" +
+              brow.p2numbers[i] +
+              " " +
+              "src= " +
+              "/" +
+              "images" +
+              "/" +
+              "bother.svg" +
+              " " +
+              "/>"
+          );
+        } else {
+          $(this).html(
+            "<img alt=" +
+              brow.p2numbers[i] +
+              " " +
+              "src= " +
+              "/" +
+              "images" +
+              "/" +
+              "wother.svg" +
+              " " +
+              "/>"
+          );
+        }
+      }
+    } else if (i > 26 && i < 36) {
+      $(this).html(
+        "<img src=" +
+          "/" +
+          "images" +
+          "/" +
+          brow.p1numbers[i - 27] +
+          ".svg " +
+          "/>"
+      );
+    }
+  });
+}
+
 $(document).ready(function () {
-  bingo.init();
+  brow.init();
+  make();
 });

@@ -7,6 +7,7 @@ const ctrl = require("./game.ctrl");
 // 목록조회
 router.get("/", ctrl.list);
 router.get("/gyeolhap", ctrl.gyeolhap);
+router.get("/blackorwhite", ctrl.BandW);
 //router.get("/finddraw", ctrl.OnlineGame);
 router.get("/deathmatch", ctrl.playMatch);
 router.get("/play", ctrl.playGame);

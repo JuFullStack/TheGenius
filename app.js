@@ -42,25 +42,6 @@ app.use(userCtrl.checkAuth);
 app.get("/", (req, res) => {
   res.render("index");
 });
-app.get("/api/game/finddraw", (req, res) => {
-  const { name, email, password } = req.body;
-  const token = req.cookies.token;
-
-  jwt.verify(token, "secretToken", (err, _id) => {
-    if (err) {
-      res.clearCookie("token");
-      return res.render("user/login");
-    }
-    // token과 디비 토큰 비교
-    UserModel.findOne({ _id, token }, (err, result) => {
-      console.log(err);
-      if (err) res.status(500).send("사용자 인증 시 오류가 발생했습니다");
-      console.log(result);
-      if (!result) return res.render("user/login");
-      res.render("game/finddraw", { result, username: result.name });
-    });
-  });
-});
 
 app.use("/api", require("./api"));
 
@@ -95,14 +76,17 @@ io.on("connection", function (socket) {
     users[user_count].id = socket.id;
     users[user_count].name = username;
     users[user_count].turn = false;
+    users[user_count].tile = data.tile;
     user_count++;
 
     io.emit("update_users", users, user_count);
   });
 
   socket.on("game_start", function (data) {
-    socket.broadcast.emit("game_started", data);
+    console.log("game_start");
     users[turn_count].turn = true;
+    socket.broadcast.emit("game_started", data);
+    console.log(users[turn_count]);
 
     io.emit("update_users", users);
   });

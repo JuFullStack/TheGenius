@@ -12,18 +12,8 @@ p {
 }
 
 #game {
-  width: 320px;
-  height: 300px;
-  margin-left: 42%;
-}
-
-#bingo {
-  float: center;
-  margin-left: 25%;
-}
-
-#user {
-  float: center;
+  width: 450px;
+  height: 320px;
 }
 
 #list {
@@ -42,17 +32,19 @@ p {
   margin-bottom: 10px;
 }
 
-.bingo-board {
-  border-left: 1px solid gray;
-  border-top: 1px solid gray;
-  border-spacing: 0px;
+table {
   margin-bottom: 20px;
   text-align: center;
+  background-color: #8b0b0b;
+  padding: 0;
 }
 
-.bingo-board td {
-  width: 35px;
-  height: 35px;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
+.brow-board td {
+  width: 50px !important;
+  height: 80px;
+}
+
+.brow-board td img {
+  width: 50px !important;
+  height: 80px;
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header");%>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/javascripts/main.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <body>
+    <center>
+      <%- include("../menu");%>
+      <h1>흑과백</h1>
+      <p>
+        <%=result.name%>님 환영합니다.
+      </p>
+      <div id="game">
+        <div id="browgame">
+          <table class="brow-board">
+            <tr>
+              <td id="other0"></td>
+              <td id="other1"></td>
+              <td id="other2"></td>
+              <td id="other3"></td>
+              <td id="other4"></td>
+              <td id="other5"></td>
+              <td id="other6"></td>
+              <td id="other7"></td>
+              <td id="other8"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id="my0"></td>
+              <td id="my1"></td>
+              <td id="my2"></td>
+              <td id="my3"></td>
+              <td id="my4"></td>
+              <td id="my5"></td>
+              <td id="my6"></td>
+              <td id="my7"></td>
+              <td id="my8"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="user">
+          <div id="list"></div>
+          <div id="logs"></div>
+          <input id="start_button" type="button" value="Game Start!" />
+          <input id="username" type="hidden" value="<%=result.name%>" />
+        </div>
+      </div>
+      <!-- container -->
+      <%- include("../footer");%>
+    </center>
+  </body>
+</html>

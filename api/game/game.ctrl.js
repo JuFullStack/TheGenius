@@ -39,7 +39,7 @@ const detail = (req, res) => {
   // id로 조회
   GameModel.findById(id, (err, result) => {
     if (err) return res.status(500).end();
-    if (!result) return res.stauts(404).end();
+    if (!result) return res.status(404).end();
     //res.json(result);
     res.render("game/detail", { result });
   });
@@ -146,7 +146,7 @@ const showUpdatePage = (req, res) => {
   });
 };
 
-const OnlineGame = (req, res) => {
+const BandW = (req, res) => {
   const token = req.cookies.token;
 
   jwt.verify(token, "secretToken", (err, _id) => {
@@ -160,7 +160,7 @@ const OnlineGame = (req, res) => {
       if (err) res.status(500).send("사용자 인증 시 오류가 발생했습니다");
       console.log(result);
       if (!result) return res.render("user/login");
-      res.render("game/finddraw", { result, username: result.name });
+      res.render("game/blackorwhite", { result, username: result.name });
     });
   });
 };
@@ -177,5 +177,5 @@ module.exports = {
   playGame,
   playMatch,
   gyeolhap,
-  //OnlineGame,
+  BandW,
 };
