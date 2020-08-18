@@ -1,3 +1,1 @@
-# The Genius : Death Match
-# TheGenius
-# TheGenius
+# 더 지니어스 : 데스매치
