@@ -55,7 +55,6 @@ var brow = {
       self.update_userlist(data, socket);
     });
 
-    //join
     socket.on("connect", function () {
       socket.emit("join", {
         username: $("#username").val(),
